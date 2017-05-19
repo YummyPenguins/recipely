@@ -8,6 +8,7 @@ var pgp = require("pg-promise")({
 
 var dbURL =
   process.env.DATABASE_URL || require("../config/config").DATABASE_URL;
+
 var tableSql = path.join(__dirname, "../tables.sql");
 
 var db = pgp(dbURL);
