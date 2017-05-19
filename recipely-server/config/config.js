@@ -2,7 +2,8 @@ module.exports = {
   // Food2Fork API key
   F2F_API_KEY: "ac96cb5d19a3078bc664338a55e35cf9",
   // URL to your local postgres server (e.g. "postgres://user:password@localhost:5432/mydatabase")
-  DATABASE_URL: "postgres://postgres:security1@localhost:5432/postgres",
+  DATABASE_URL: "postgresql-adjacent-56744",
+  //"postgres://postgres:security1@localhost:5432/postgres",
   // Secret string used to encode the user authentication tokens
   TOKEN_SECRET: "HRR23D",
   // Clarifai API client id
