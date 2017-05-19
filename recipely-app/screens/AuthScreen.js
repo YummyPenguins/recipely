@@ -29,7 +29,7 @@ class AuthScreen extends Component {
     dismissKeyboard();
     const { username, password } = this.state;
 
-    fetch(`https://jellyfiish-recipely.herokuapp.com/api/${type}`, {
+    fetch(`https://yummypenguin-recipely.herokuapp.com/api/${type}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ class AuthScreen extends Component {
             // Toggle isLoggedIn state
             this.props.screenProps.onLoginChange();
 
-            const fetchRecipes = fetch('https://jellyfiish-recipely.herokuapp.com/api/users/recipes', {
+            const fetchRecipes = fetch('https://yummypenguin-recipely.herokuapp.com/api/users/recipes', {
               headers: { 'x-access-token': `Bearer ${token}` }
             }).then(res => {
                 if (res.status === 200) {
@@ -65,7 +65,7 @@ class AuthScreen extends Component {
             });
 
             // Fetch user's notes
-            const fetchNotes = fetch('https://jellyfiish-recipely.herokuapp.com/api/users/notes', {
+            const fetchNotes = fetch('https://yummypenguin-recipely.herokuapp.com/api/users/notes', {
               headers: { 'x-access-token': `Bearer ${token}` }
             }).then(res => {
                 if (res.status === 200) {

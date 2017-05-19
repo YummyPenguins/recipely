@@ -14,7 +14,7 @@ class PopularScreen extends Component {
 
   componentDidMount() {
     if (this.props.screenProps.popularRecipes === null) {
-      fetch('https://jellyfiish-recipely.herokuapp.com/api/recipes')
+      fetch('https://yummypenguin-recipely.herokuapp.com/api/recipes')
         .then(res => res.json())
         .then(result => {
           this.props.screenProps.onPopularRecipesChange(result.recipes);
@@ -36,7 +36,6 @@ class PopularScreen extends Component {
 
     return (
       <View style={styles.container}>
-
         { popularRecipes
           ? <ResultList
               navigation={navigation}
