@@ -93,7 +93,7 @@ class PhotoScreen extends Component {
     // Encode image as base64 to send to image prediction API.
     ImageStore.getBase64ForTag(uri, (encoded) => {
       // Image prediction API requires an authorization token.
-      fetch('https://jellyfiish-recipely.herokuapp.com/api/clarifai', {
+      fetch('https://yummypenguin-recipely.herokuapp.com/api/clarifai', {
         method: 'POST',
         headers: { 'x-access-token': `Bearer ${this.props.screenProps.idToken}` }
       }).then(res => res.json())

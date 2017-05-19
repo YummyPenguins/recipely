@@ -43,7 +43,7 @@ class EditNoteScreen extends Component {
     this.setState({isUpdating: false});
 
     // Update note in database. Do this in background.
-    fetch(`https://jellyfiish-recipely.herokuapp.com/api/notes/${note.id}`, {
+    fetch(`yummypenguin-recipely.herokuapp.com/api/notes/${note.id}`, {
       method: 'PUT',
       headers: {
         'x-access-token': `Bearer ${idToken}`,
