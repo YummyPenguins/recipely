@@ -193,7 +193,7 @@ const MainDrawerNavigator = DrawerNavigator(
     Notes: {
       screen: NoteStack,
       navigationOptions: ({ navigation }) => ({
-        drawerLabel: "View notes",
+        drawerLabel: "Shopping List",
         drawerIcon: DrawerIcon("note")
       })
     },
