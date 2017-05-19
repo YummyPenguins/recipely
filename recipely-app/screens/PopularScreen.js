@@ -36,7 +36,6 @@ class PopularScreen extends Component {
 
     return (
       <View style={styles.container}>
-
         { popularRecipes
           ? <ResultList
               navigation={navigation}

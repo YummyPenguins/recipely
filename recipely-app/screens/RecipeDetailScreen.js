@@ -124,7 +124,7 @@ class RecipeDetailScreen extends Component {
             <Text style={styles.notesTitleStyle}>Notes</Text>
           </View>
 
-          { this.state.notes.map(note => {
+          { this.state.notes.map((note, index) => {
               return (
                 <Card key={note.id}>
                   <Text style={styles.noteTextStyle}>{note.text}</Text>
