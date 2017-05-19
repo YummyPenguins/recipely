@@ -7,13 +7,8 @@ var pgp = require("pg-promise")({
 });
 
 var dbURL =
-<<<<<<< HEAD
   process.env.DATABASE_URL || require("../config/config").DATABASE_URL;
 
-=======
-  process.env.postgresql - adjacent - 56744 ||
-  require("../config/config").postgresql - adjacent - 56744;
->>>>>>> Change config/db for deployment
 var tableSql = path.join(__dirname, "../tables.sql");
 
 var db = pgp(dbURL);
