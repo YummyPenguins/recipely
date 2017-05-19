@@ -38,17 +38,20 @@ class App extends Component {
         this.setIdToken(idToken);
 
         // Make a request to our server to get a new token
-        const getRefreshToken = fetch('https://jellyfiish-recipely.herokuapp.com/api/token', {
+        const getRefreshToken = fetch('https://yummypenguin-recipely.herokuapp.com/api/token', {
           headers: { 'x-access-token': `Bearer ${idToken}` }
         }).then(res => res.json())
           .then(refreshToken => {
             AsyncStorage.setItem('id_token', refreshToken, () => {
               this.setIdToken(refreshToken);
             });
+          })
+          .catch(err => {
+            console.log(err);
           });
 
         // Fetch user's recipes
-        const fetchRecipes = fetch('https://jellyfiish-recipely.herokuapp.com/api/users/recipes', {
+        const fetchRecipes = fetch('https://yummypenguin-recipely.herokuapp.com/api/users/recipes', {
           headers: { 'x-access-token': `Bearer ${idToken}` }
         }).then(res => {
             if (res.status === 200) {
@@ -58,7 +61,7 @@ class App extends Component {
           });
 
         // Fetch user's notes
-        const fetchNotes = fetch('https://jellyfiish-recipely.herokuapp.com/api/users/notes', {
+        const fetchNotes = fetch('https://yummypenguin-recipely.herokuapp.com/api/users/notes', {
           headers: { 'x-access-token': `Bearer ${idToken}` }
         }).then(res => {
             if (res.status === 200) {

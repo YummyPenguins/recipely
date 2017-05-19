@@ -24,7 +24,7 @@ class AddNoteScreen extends Component {
     this.setState({isAdding: true});
     const { idToken, f2f_id, title, thumbnail_url, onGoBack } = this.props.navigation.state.params;
 
-    fetch('https://jellyfiish-recipely.herokuapp.com/api/users/recipes/notes', {
+    fetch('https://yummypenguin-recipely.herokuapp.com/api/users/recipes/notes', {
       method: 'POST',
       headers: {
         'x-access-token': `Bearer ${idToken}`,

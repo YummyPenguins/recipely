@@ -28,7 +28,7 @@ class RecipeDetailScreen extends Component {
     const { recipe_id } = this.props.navigation.state.params;
     // Fetch ingredients if no ingredients were passed down
     if (!this.state.ingredients) {
-      fetch(`https://jellyfiish-recipely.herokuapp.com/api/recipes/${recipe_id}`)
+      fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes/${recipe_id}`)
         .then(res => res.json())
         .then(result => this.setState({ ingredients: result.recipe.ingredients }));
     }
@@ -76,7 +76,7 @@ class RecipeDetailScreen extends Component {
     });
     // Remove note from database
     const { idToken } = this.props.navigation.state.params;
-    fetch(`https://jellyfiish-recipely.herokuapp.com/api/notes/${note.id}`, {
+    fetch(`https://yummypenguin-recipely.herokuapp.com/api/notes/${note.id}`, {
       method: 'DELETE',
       headers: {
         'x-access-token': `Bearer ${idToken}`,
@@ -124,7 +124,7 @@ class RecipeDetailScreen extends Component {
             <Text style={styles.notesTitleStyle}>Notes</Text>
           </View>
 
-          { this.state.notes.map(note => {
+          { this.state.notes.map((note, index) => {
               return (
                 <Card key={note.id}>
                   <Text style={styles.noteTextStyle}>{note.text}</Text>
