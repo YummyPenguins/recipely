@@ -30,7 +30,7 @@ const RecipeList = ({ navigation, recipes, notes, idToken, onRecipesChange }) =>
       recipes.filter(otherRecipe => otherRecipe.f2f_id !== recipe.f2f_id)
     );
     // Remove user's saved recipe from database
-    fetch(`https://yummypenguin-recipely.herokuapp.com/${recipe.f2f_id}`, {
+    fetch(`https://yummypenguin-recipely.herokuapp.com/api/users/recipes/${recipe.f2f_id}`, {
       method: 'DELETE',
       headers: {
         'x-access-token': `Bearer ${idToken}`,
