@@ -65,7 +65,7 @@ const RecipeStack = StackNavigator(
     AddNote: {
       screen: AddNoteScreen,
       navigationOptions: ({ navigation }) => ({
-        title: `Shopping List: ${navigation.state.params.title}`
+        title: `Edit List: ${navigation.state.params.title}`
       })
     }
   },

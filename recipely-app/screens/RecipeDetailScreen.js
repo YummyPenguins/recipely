@@ -17,7 +17,7 @@ import Button from "../components/CustomButton";
 class RecipeDetailScreen extends Component {
   constructor(props) {
     super(props);
-
+    console.log("???????????!!!!!", props);
     this.state = {
       ingredients: this.props.navigation.state.params.ingredients,
       notes: this.props.navigation.state.params.notes
@@ -62,12 +62,14 @@ class RecipeDetailScreen extends Component {
       idToken,
       title,
       f2f_id,
+      ingredients,
       thumbnail_url
     } = this.props.navigation.state.params;
     this.props.navigation.navigate("AddNote", {
       idToken,
       title,
       f2f_id,
+      ingredients,
       thumbnail_url,
       onGoBack: notes => this.updateNotes(notes)
     });
