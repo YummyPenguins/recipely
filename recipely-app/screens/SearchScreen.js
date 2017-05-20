@@ -14,7 +14,6 @@ import Button from '../components/CustomButton';
 class SearchScreen extends Component {
   constructor(props) {
     super(props);
-
     this.state = { input: '' };
   }
 

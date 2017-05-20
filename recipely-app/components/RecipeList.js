@@ -7,13 +7,14 @@ import {
   ScrollView,
   View
 } from 'react-native';
-import { Card } from 'react-native-elements';
+import { Card, SwipeDeck } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 import Button from '../components/CustomButton';
 
 // Navigation prop needs to be passed down because it does not get passed down
 // child components.
 const RecipeList = ({ navigation, recipes, notes, idToken, onRecipesChange }) => {
+  
   onLearnMore = (recipe) => {
     // When user presses on "Details" button, navigate them to a detail screen.
     // Pass down props that can be acessed using this.props.navigation.state.params

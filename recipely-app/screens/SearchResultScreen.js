@@ -13,6 +13,7 @@ class SearchResultScreen extends Component {
   }
 
   componentDidMount() {
+    //retrieve searchResults and onSearchchange form Main.js
     const { searchResults, onSearchChange } = this.props.screenProps;
     const { query } = this.props.navigation.state.params;
     if (!searchResults.hasOwnProperty(query)) {
