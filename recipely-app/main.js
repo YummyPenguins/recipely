@@ -45,9 +45,6 @@ class App extends Component {
             AsyncStorage.setItem('id_token', refreshToken, () => {
               this.setIdToken(refreshToken);
             });
-          })
-          .catch(err => {
-            console.log(err);
           });
 
         // Fetch user's recipes
