@@ -7,12 +7,16 @@ import {
   ScrollView,
   View,
 } from 'react-native';
-import { Card } from 'react-native-elements';
+import { 
+  Card, 
+  SwipeDeck 
+} from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 import Button from '../components/CustomButton';
 
 // Navigation prop needs to be passed down because it does not get passed down
 // child components.
+var index = 0;
 const ResultList = ({
   navigation,
   recipes,
@@ -25,6 +29,7 @@ const ResultList = ({
   onLearnMore = (recipe) => {
     // When user presses on "Details" button, navigate them to a detail screen.
     // Pass down props that can be acessed using this.props.navigation.state.params
+
     navigation.navigate('SearchDetail', { ...recipe });
   }
 
@@ -63,37 +68,51 @@ const ResultList = ({
     const newResults = recipes.filter(otherRecipe => otherRecipe.recipe_id !== recipe.recipe_id);
     onSearchChange(query, newResults);
   };
+ 
+  onSwipeRight = (recipe) => {
+    console.log("Card liked: " + JSON.stringify(recipe));
+    handleSaveRecipeButton(recipe);
+  }
+
+  onSwipeLeft = (recipe) => {
+    console.log("Card disliked: " + recipe);
+  }
+
+  renderCard = (recipe) => {
+    return (
+        <Card
+          key={recipe.recipe_id}
+          title={recipe.title}
+          image={{ uri: recipe.image_url }}
+        >
+          <Text style={styles.publisherText}>{recipe.publisher}</Text>
+          <View style={styles.buttonContainer}>
+            <Button
+              title='Details'
+              icon={{name: 'explore'}}
+              buttonStyle={{marginLeft: 0}}
+              onPress={() => this.onLearnMore(recipe)}
+            />
+
+            <Button
+              title='Add'
+              icon={{name: 'add'}}
+              buttonStyle={{marginRight: 0}}
+              onPress={() => this.handleSaveRecipeButton(recipe)}
+            />
+          </View>
+        </Card>
+      );
+  }
 
   return (
-    <ScrollView>
-      { recipes.map(recipe => {
-          return (
-            <Card
-              key={recipe.recipe_id}
-              title={recipe.title}
-              image={{ uri: recipe.image_url }}
-            >
-              <Text style={styles.publisherText}>{recipe.publisher}</Text>
-              <View style={styles.buttonContainer}>
-                <Button
-                  title='Details'
-                  icon={{name: 'explore'}}
-                  buttonStyle={{marginLeft: 0}}
-                  onPress={() => this.onLearnMore(recipe)}
-                />
-
-                <Button
-                  title='Add'
-                  icon={{name: 'add'}}
-                  buttonStyle={{marginRight: 0}}
-                  onPress={() => this.handleSaveRecipeButton(recipe)}
-                />
-              </View>
-            </Card>
-          );
-        })
-      }
-    </ScrollView>
+      <SwipeDeck
+        key={index++}
+        data={recipes}
+        renderCard={this.renderCard}
+        onSwipeRight={this.onSwipeRight}
+        onSwipeLeft={this.onSwipeLeft}
+      />
   );
 };
 

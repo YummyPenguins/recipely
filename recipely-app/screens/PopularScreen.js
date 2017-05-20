@@ -5,6 +5,7 @@ import {
   Text,
   View
 } from 'react-native';
+import { SwipeDeck } from 'react-native-elements';
 import ResultList from '../components/ResultList';
 
 class PopularScreen extends Component {
@@ -17,7 +18,9 @@ class PopularScreen extends Component {
       fetch('https://yummypenguin-recipely.herokuapp.com/api/recipes')
         .then(res => res.json())
         .then(result => {
+          console.log('Working');
           this.props.screenProps.onPopularRecipesChange(result.recipes);
+          // console.log("PROPS", this.props.screenProps.popularRecipes);
         }
       );
     }
@@ -33,10 +36,9 @@ class PopularScreen extends Component {
     } = this.props.screenProps;
     const { navigation } = this.props;
 
-
     return (
       <View style={styles.container}>
-        { popularRecipes
+        { popularRecipes 
           ? <ResultList
               navigation={navigation}
               recipes={popularRecipes}
