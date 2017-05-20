@@ -16,6 +16,7 @@ import Button from '../components/CustomButton';
 
 // Navigation prop needs to be passed down because it does not get passed down
 // child components.
+var index = 0;
 const ResultList = ({
   navigation,
   recipes,
@@ -68,7 +69,15 @@ const ResultList = ({
     onSearchChange(query, newResults);
   };
  
- 
+  onSwipeRight = (recipe) => {
+    console.log("Card liked: " + JSON.stringify(recipe));
+    handleSaveRecipeButton(recipe);
+  }
+
+  onSwipeLeft = (recipe) => {
+    console.log("Card disliked: " + recipe);
+  }
+
   renderCard = (recipe) => {
     return (
         <Card
@@ -98,8 +107,11 @@ const ResultList = ({
 
   return (
       <SwipeDeck
+        key={index++}
         data={recipes}
         renderCard={this.renderCard}
+        onSwipeRight={this.onSwipeRight}
+        onSwipeLeft={this.onSwipeLeft}
       />
   );
 };
