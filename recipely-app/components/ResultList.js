@@ -20,52 +20,6 @@ const ResultList = ({
   onLearnMore = recipe => {
     // When user presses on "Details" button, navigate them to a detail screen.
     // Pass down props that can be acessed using this.props.navigation.state.params
-<<<<<<< HEAD
-    navigation.navigate('SearchDetail', { ...recipe });
-  }
-
-  handleSaveRecipeButton = async (recipe) => {
-      const id = recipe.recipe_id;
-      const isSaved = savedRecipes.find(recipe => recipe.f2f_id === id);
-      // Only add recipe if it has not been saved yet
-      if (!isSaved) {
-        // Remove recipe from search so user knows it was saved
-        // removeRecipeFromSearch(recipe);
-        // Making get request to get details of recipe so that it can be added to database
-        let recipeObj = await
-          fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes/${id}`)
-            .then(res => res.json())
-            .then(result => result.recipe);
-        recipeObj = {
-          ...recipeObj,
-          f2f_id: recipe.recipe_id,
-          thumbnail_url: recipe.image_url,
-        };
-        // Update client's list of recipes. We wait until we get the ingredients to add it.
-        onRecipesChange([ ...savedRecipes, recipeObj]);
-        // Make the post request to add recipe to database
-        fetch('https://yummypenguin-recipely.herokuapp.com/api/users/recipes/', {
-          headers: {
-            'Content-Type': 'application/json',
-            'x-access-token': `Bearer ${idToken}`,
-          },
-          method: 'POST',
-          body: JSON.stringify(recipeObj),
-        });
-      }
-  };
-
-  // removeRecipeFromSearch = (recipe) => {
-  //   const newResults = recipes.filter(otherRecipe => otherRecipe.recipe_id !== recipe.recipe_id);
-  //   onSearchChange(query, newResults);
-  // };
- 
-  onSwipeRight = (recipe) => {
-    // console.log("Card liked: " + JSON.stringify(recipe));
-    this.handleSaveRecipeButton(recipe);
-  }
-=======
-
     navigation.navigate("SearchDetail", { ...recipe });
   };
 
@@ -75,7 +29,7 @@ const ResultList = ({
     // Only add recipe if it has not been saved yet
     if (!isSaved) {
       // Remove recipe from search so user knows it was saved
-      //removeRecipeFromSearch(recipe);
+      // removeRecipeFromSearch(recipe);
       // Making get request to get details of recipe so that it can be added to database
       let recipeObj = await fetch(
         `https://yummypenguin-recipely.herokuapp.com/api/recipes/${id}`
@@ -101,37 +55,29 @@ const ResultList = ({
     }
   };
 
-  removeRecipeFromSearch = recipe => {
-    const newResults = recipes.filter(
-      otherRecipe => otherRecipe.recipe_id !== recipe.recipe_id
-    );
-    onSearchChange(query, newResults);
-  };
+  // removeRecipeFromSearch = (recipe) => {
+  //   const newResults = recipes.filter(otherRecipe => otherRecipe.recipe_id !== recipe.recipe_id);
+  //   onSearchChange(query, newResults);
+  // };
 
   onSwipeRight = recipe => {
-    console.log("Card liked: " + JSON.stringify(recipe));
-    handleSaveRecipeButton(recipe);
+    // console.log("Card liked: " + JSON.stringify(recipe));
+    this.handleSaveRecipeButton(recipe);
   };
->>>>>>> Fix minor naming
 
   onSwipeLeft = recipe => {
     console.log("Card disliked: " + recipe);
-<<<<<<< HEAD
-  }
-  
-  renderNoMoreCards= () => {
+  };
+
+  renderNoMoreCards = () => {
     return (
       <Card
         featuredTitle="No more cards"
-        featuredTitleStyle={{fontSize: 25}}
-        image={{ uri: 'https://i.imgflip.com/1j2oed.jpg' }}
+        featuredTitleStyle={{ fontSize: 25 }}
+        image={{ uri: "https://i.imgflip.com/1j2oed.jpg" }}
       />
-    )
-  }
-
-=======
+    );
   };
->>>>>>> Fix minor naming
 
   renderCard = recipe => {
     return (
@@ -149,33 +95,12 @@ const ResultList = ({
             onPress={() => this.onLearnMore(recipe)}
           />
 
-<<<<<<< HEAD
-            {/*<Button
+          {/*<Button
               title='Add'
               icon={{name: 'add'}}
               buttonStyle={{marginRight: 0}}
               onPress={() => this.handleSaveRecipeButton(recipe)}
             />*/}
-          </View>
-        </Card>
-      );
-  }
-
-  return (
-      <SwipeDeck
-        data={recipes}
-        renderCard={this.renderCard}
-        renderNoMoreCards={this.renderNoMoreCards}
-        onSwipeRight={this.onSwipeRight}
-        onSwipeLeft={this.onSwipeLeft}
-      />
-=======
-          <Button
-            title="Add"
-            icon={{ name: "add" }}
-            buttonStyle={{ marginRight: 0 }}
-            onPress={() => this.handleSaveRecipeButton(recipe)}
-          />
         </View>
       </Card>
     );
@@ -183,13 +108,12 @@ const ResultList = ({
 
   return (
     <SwipeDeck
-      key={index++}
       data={recipes}
       renderCard={this.renderCard}
+      renderNoMoreCards={this.renderNoMoreCards}
       onSwipeRight={this.onSwipeRight}
       onSwipeLeft={this.onSwipeLeft}
     />
->>>>>>> Fix minor naming
   );
 };
 
