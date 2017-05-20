@@ -34,33 +34,36 @@ const ResultList = ({
   }
 
   handleSaveRecipeButton = async (recipe) => {
-    const id = recipe.recipe_id;
-    const isSaved = savedRecipes.find(recipe => recipe.f2f_id === id);
-    // Only add recipe if it has not been saved yet
-    if (!isSaved) {
-      // Remove recipe from search so user knows it was saved
-      removeRecipeFromSearch(recipe);
-      // Making get request to get details of recipe so that it can be added to database
-      let recipeObj = await
-        fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes/${id}`)
-          .then(res => res.json())
-          .then(result => result.recipe);
-      recipeObj = {
-        ...recipeObj,
-        f2f_id: recipe.recipe_id,
-        thumbnail_url: recipe.image_url,
-      };
-      // Update client's list of recipes. We wait until we get the ingredients to add it.
-      onRecipesChange([ ...savedRecipes, recipeObj]);
-      // Make the post request to add recipe to database
-      fetch('https://yummypenguin-recipely.herokuapp.com/api/users/recipes/', {
-        headers: {
-          'Content-Type': 'application/json',
-          'x-access-token': `Bearer ${idToken}`,
-        },
-        method: 'POST',
-        body: JSON.stringify(recipeObj),
-      });
+    console.log(recipe);
+    if(recipe) {
+      const id = recipe.recipe_id;
+      const isSaved = savedRecipes.find(recipe => recipe.f2f_id === id);
+      // Only add recipe if it has not been saved yet
+      if (!isSaved) {
+        // Remove recipe from search so user knows it was saved
+        removeRecipeFromSearch(recipe);
+        // Making get request to get details of recipe so that it can be added to database
+        let recipeObj = await
+          fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes/${id}`)
+            .then(res => res.json())
+            .then(result => result.recipe);
+        recipeObj = {
+          ...recipeObj,
+          f2f_id: recipe.recipe_id,
+          thumbnail_url: recipe.image_url,
+        };
+        // Update client's list of recipes. We wait until we get the ingredients to add it.
+        onRecipesChange([ ...savedRecipes, recipeObj]);
+        // Make the post request to add recipe to database
+        fetch('https://yummypenguin-recipely.herokuapp.com/api/users/recipes/', {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-access-token': `Bearer ${idToken}`,
+          },
+          method: 'POST',
+          body: JSON.stringify(recipeObj),
+        });
+      }
     }
   };
 
@@ -70,13 +73,26 @@ const ResultList = ({
   };
  
   onSwipeRight = (recipe) => {
-    console.log("Card liked: " + JSON.stringify(recipe));
-    handleSaveRecipeButton(recipe);
+    // console.log("Card liked: " + JSON.stringify(recipe));
+    //this.handleSaveRecipeButton(recipe);
   }
 
   onSwipeLeft = (recipe) => {
     console.log("Card disliked: " + recipe);
   }
+  
+  renderNoMoreCards= () => {
+    return (
+      <Card
+        containerStyle={{borderRadius: 10, width: SCREEN_WIDTH * 0.92, height: SCREEN_HEIGHT - 165}}
+        featuredTitle="No more cards"
+        featuredTitleStyle={{fontSize: 25}}
+        image={{ uri: 'https://i.imgflip.com/1j2oed.jpg' }}
+        imageStyle={{borderRadius: 10, width: SCREEN_WIDTH * 0.915, height: SCREEN_HEIGHT - 165}}
+      />
+    )
+  }
+
 
   renderCard = (recipe) => {
     return (
@@ -94,12 +110,12 @@ const ResultList = ({
               onPress={() => this.onLearnMore(recipe)}
             />
 
-            <Button
+            {/*<Button
               title='Add'
               icon={{name: 'add'}}
               buttonStyle={{marginRight: 0}}
               onPress={() => this.handleSaveRecipeButton(recipe)}
-            />
+            />*/}
           </View>
         </Card>
       );
