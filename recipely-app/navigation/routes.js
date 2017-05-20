@@ -81,7 +81,7 @@ const NoteStack = StackNavigator(
     Notes: {
       screen: NoteScreen,
       navigationOptions: ({ navigation }) => ({
-        title: "All Notes",
+        title: "Shopping List",
         headerLeft: MenuIcon(navigation)
       })
     }
@@ -116,7 +116,7 @@ const SearchTab = TabNavigator({
     })
   },
   ShoppingList: {
-    screen: PhotoScreen,
+    screen: NoteScreen,
     navigationOptions: ({ navigation }) => ({
       tabBarLabel: "Shopping List",
       tabBarIcon: TabBarIcon("photo-camera")
