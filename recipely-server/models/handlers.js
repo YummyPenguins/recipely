@@ -242,7 +242,8 @@ function deleteNote(req, res) {
 
 function getRecipes(req, res) {
   var query = req.query.q || '';
-  var url = `http://food2fork.com/api/search?key=${key}&q=${query}`
+  var page = req.query.page || 0;
+  var url = `http://food2fork.com/api/search?key=${key}&q=${query}&page=${page}`
   axios.get(url)
     .then(response => {
       res.status(200).json(response.data);
