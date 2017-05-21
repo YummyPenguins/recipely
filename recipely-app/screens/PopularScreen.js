@@ -14,9 +14,27 @@ class PopularScreen extends Component {
   }
 
   getPopularRecipes = (pageNumber) => {
-    pageNumber = pageNumber || 2;
-    console.log('pagenumber', pageNumber);
-      fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes/?q=""&page=${pageNumber}`)
+    function shuffle(array) {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    }
+
+    pageNumber = pageNumber || 1;
+      fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes/?&page=${pageNumber}`)
         .then(res => res.json())
         .then(result => {
           var filteredResults = result;
@@ -25,7 +43,8 @@ class PopularScreen extends Component {
           //   filteredResults = this.removeUserSavedRecipeFromSearch(result, this.props.screenProps.recipes);
           // }
           console.log('filtered', filteredResults.recipes.length);
-          this.props.screenProps.onPopularRecipesChange(filteredResults.recipes);
+          filteredResults.recipes = shuffle(filteredResults.recipes);
+          this.props.screenProps.onPopularRecipesChange(filteredResults.recipes.slice(0, 15));
           // console.log("PROPS", this.props.screenProps.popularRecipes);
         }
       );
@@ -44,12 +63,12 @@ class PopularScreen extends Component {
           }
         })
     
-        for(var i = 0; i < userRecipe.length; i++){
-          console.log('checker', recipe.recipe_id, userRecipe[i].f2f_id, recipe.recipe_id !== userRecipe[i].f2f_id);
-          if(userRecipe[i].f2f_id !== recipe.recipe_id) {
-            return true;
-          }
-        }
+        // for(var i = 0; i < userRecipe.length; i++){
+        //   console.log('checker', recipe.recipe_id, userRecipe[i].f2f_id, recipe.recipe_id !== userRecipe[i].f2f_id);
+        //   if(userRecipe[i].f2f_id !== recipe.recipe_id) {
+        //     return true;
+        //   }
+        // }
         return false;
         }
       );
@@ -84,6 +103,8 @@ class PopularScreen extends Component {
               recipes={popularRecipes}
               savedRecipes={savedRecipes}
               idToken={idToken}
+              getMoreRecipe={this.getPopularRecipes.bind(this)}
+              onPopularRecipesChange={onPopularRecipesChange}
               onRecipesChange={onRecipesChange}
               onSearchChange={(query, result) => onPopularRecipesChange(result)}
             />

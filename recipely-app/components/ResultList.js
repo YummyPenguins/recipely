@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   ScrollView,
+  ActivityIndicator,
   View,
 } from 'react-native';
 import { 
@@ -13,7 +14,7 @@ import {
 } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 import Button from '../components/CustomButton';
-
+   var index = 1
 // Navigation prop needs to be passed down because it does not get passed down
 // child components.
 const ResultList = ({
@@ -22,6 +23,8 @@ const ResultList = ({
   savedRecipes,
   idToken,
   query,
+  onPopularRecipesChange,
+  getMoreRecipe,
   onRecipesChange,
   onSearchChange
 }) => {
@@ -69,22 +72,26 @@ const ResultList = ({
  
   onSwipeRight = (recipe) => {
     // console.log("Card liked: " + JSON.stringify(recipe));
-
     this.handleSaveRecipeButton(recipe);
   }
 
   onSwipeLeft = (recipe) => {
-        console.log(recipes.length);
+  
+    console.log(recipes.length);
     console.log("Card disliked: " + recipe);
   }
   
   renderNoMoreCards= () => {
+    getMoreRecipe(++index);
+    //onPopularRecipesChange([]);
     return (
-      <Card
-        featuredTitle="No more cards"
-        featuredTitleStyle={{fontSize: 25}}
-        image={{ uri: 'https://i.imgflip.com/1j2oed.jpg' }}
-      />
+    <View style={styles.container}>
+      <View style={styles.loadingContainer}>
+        <Text>Loading recipes</Text>
+        <ActivityIndicator size="large" />
+      </View>
+    </View>
+    
     )
   }
 
@@ -130,9 +137,17 @@ const ResultList = ({
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   publisherText: {
     flex: 1,
