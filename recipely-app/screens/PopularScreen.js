@@ -13,9 +13,9 @@ class PopularScreen extends Component {
     super(props);
   }
 
-  getPopularRecipes = () => {
-    if (this.props.screenProps.popularRecipes === null) {
-      fetch('https://yummypenguin-recipely.herokuapp.com/api/recipes')
+  getPopularRecipes = (pageNumber) => {
+    pageNumber = pageNumber || 0;
+      fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes/?q=""&page=${pageNumber}`)
         .then(res => res.json())
         .then(result => {
           var filteredResults = result;
@@ -28,7 +28,6 @@ class PopularScreen extends Component {
           // console.log("PROPS", this.props.screenProps.popularRecipes);
         }
       );
-    }
   }
 
   removeUserSavedRecipeFromSearch = (result, savedRecipes) => {
