@@ -14,24 +14,7 @@ class PopularScreen extends Component {
   }
 
   getPopularRecipes = (pageNumber) => {
-    function shuffle(array) {
-      var currentIndex = array.length, temporaryValue, randomIndex;
-
-      // While there remain elements to shuffle...
-      while (0 !== currentIndex) {
-
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-
-        // And swap it with the current element.
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-      }
-
-      return array;
-    }
+  
 
     pageNumber = pageNumber || 1;
       fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes/?&page=${pageNumber}`)
@@ -43,7 +26,7 @@ class PopularScreen extends Component {
           //   filteredResults = this.removeUserSavedRecipeFromSearch(result, this.props.screenProps.recipes);
           // }
           console.log('filtered', filteredResults.recipes.length);
-          filteredResults.recipes = shuffle(filteredResults.recipes);
+          filteredResults.recipes = this.shuffle(filteredResults.recipes);
           this.props.screenProps.onPopularRecipesChange(filteredResults.recipes.slice(0, 15));
           // console.log("PROPS", this.props.screenProps.popularRecipes);
         }
@@ -62,7 +45,6 @@ class PopularScreen extends Component {
             return true;
           }
         })
-    
         // for(var i = 0; i < userRecipe.length; i++){
         //   console.log('checker', recipe.recipe_id, userRecipe[i].f2f_id, recipe.recipe_id !== userRecipe[i].f2f_id);
         //   if(userRecipe[i].f2f_id !== recipe.recipe_id) {
@@ -80,6 +62,25 @@ class PopularScreen extends Component {
       // onSearchChange(query, newResults);
      return result;
   };
+
+  shuffle = (array) => {
+      var currentIndex = array.length, temporaryValue, randomIndex;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+  }
 
   componentDidMount() {
     this.getPopularRecipes();

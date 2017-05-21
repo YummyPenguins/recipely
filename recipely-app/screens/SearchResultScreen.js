@@ -5,7 +5,7 @@ import {
   Text,
   View
 } from 'react-native';
-import ResultList from '../components/ResultList';
+import SearchList from '../components/SearchList';
 
 class SearchResultScreen extends Component {
   constructor(props) {
@@ -13,13 +13,14 @@ class SearchResultScreen extends Component {
   }
 
   componentDidMount() {
-    //retrieve searchResults and onSearchchange form Main.js
+    //retrieve searchResults and onSearchchange from main.js
     const { searchResults, onSearchChange } = this.props.screenProps;
+    //retrieve the query from navigation
     const { query } = this.props.navigation.state.params;
     if (!searchResults.hasOwnProperty(query)) {
       fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes?q=${query}`)
         .then(res => res.json())
-        .then(results => onSearchChange(query, results.recipes));
+        .then(results => onSearchChange(query, results.recipes.slice(0, 15)));
     }
   }
 
@@ -42,7 +43,7 @@ class SearchResultScreen extends Component {
     return (
       <View style={styles.container}>
         { recipes.length !== 0
-          ? <ResultList
+          ? <SearchList
               navigation={navigation}
               recipes={recipes}
               savedRecipes={savedRecipes}
