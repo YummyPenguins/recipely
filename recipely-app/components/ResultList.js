@@ -69,10 +69,12 @@ const ResultList = ({
  
   onSwipeRight = (recipe) => {
     // console.log("Card liked: " + JSON.stringify(recipe));
+
     this.handleSaveRecipeButton(recipe);
   }
 
   onSwipeLeft = (recipe) => {
+        console.log(recipes.length);
     console.log("Card disliked: " + recipe);
   }
   
@@ -96,13 +98,14 @@ const ResultList = ({
         >
           <Text style={styles.publisherText}>{recipe.publisher}</Text>
           <View style={styles.buttonContainer}>
+            <Text style={styles.leftSwipe}>{'SWIPE TO\n<<<TRASH'}</Text>
             <Button
               title='Details'
               icon={{name: 'explore'}}
-              buttonStyle={{marginLeft: 0}}
+              buttonStyle={{marginRight: 0}}
               onPress={() => this.onLearnMore(recipe)}
             />
-
+            <Text>{'SWIPE TO\nSTASH>>>'}</Text>
             {/*<Button
               title='Add'
               icon={{name: 'add'}}
@@ -116,6 +119,7 @@ const ResultList = ({
 
   return (
       <SwipeDeck
+        key={recipes.length}
         data={recipes}
         renderCard={this.renderCard}
         renderNoMoreCards={this.renderNoMoreCards}
@@ -128,11 +132,18 @@ const ResultList = ({
 const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
   },
   publisherText: {
+    flex: 1,
+    textAlign: 'center',
+    alignItems: 'center',
+    justifyContent: 'center',
     marginBottom: 10,
   },
+  leftSwipe: {
+    textAlign: 'right'
+  }
 });
 
 export default ResultList;

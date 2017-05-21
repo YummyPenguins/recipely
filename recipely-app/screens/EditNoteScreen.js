@@ -20,6 +20,10 @@ class EditNoteScreen extends Component {
     };
   }
 
+  //On load
+    //get ingridents from where ever
+    //push each ingredients into the text state
+    
   onUpdatePress = () => {
     this.setState({isUpdating: true});
     const { note, idToken, onGoBack } = this.props.navigation.state.params;

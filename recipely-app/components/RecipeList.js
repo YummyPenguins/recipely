@@ -25,7 +25,6 @@ const RecipeList = ({ navigation, recipes, notes, idToken, onRecipesChange }) =>
   // Delete recipe
   onDeletePress = (recipe) => {
     // Remove recipe from user's list of recipes
-    console.log(recipe);
     onRecipesChange(
       recipes.filter(otherRecipe => otherRecipe.f2f_id !== recipe.f2f_id)
     );
