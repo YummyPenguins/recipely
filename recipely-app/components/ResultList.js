@@ -1,6 +1,5 @@
 // TODO: RecipeList.js and ResultList.js share a lot of code. Maybe refactor to
 // use higher order components.
-<<<<<<< HEAD
 import React from 'react';
 import {
   StyleSheet,
@@ -15,15 +14,8 @@ import {
 } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
 import Button from '../components/CustomButton';
-   var index = 1
-=======
-import React from "react";
-import { StyleSheet, Text, ScrollView, View } from "react-native";
-import { Card, SwipeDeck } from "react-native-elements";
-import { MaterialIcons } from "@expo/vector-icons";
-import Button from "../components/CustomButton";
+var index = 1
 
->>>>>>> 1aa14639aee3b6ce9356c20f191ffde80cfb0fb3
 // Navigation prop needs to be passed down because it does not get passed down
 // child components.
 const ResultList = ({
@@ -85,7 +77,6 @@ const ResultList = ({
     this.handleSaveRecipeButton(recipe);
   };
 
-<<<<<<< HEAD
   onSwipeLeft = (recipe) => {
   
     console.log(recipes.length);
@@ -106,25 +97,8 @@ const ResultList = ({
     )
   }
 
-=======
-  onSwipeLeft = recipe => {
-    console.log("Card disliked: " + recipe);
-  };
-
-  renderNoMoreCards = () => {
-    return (
-      <Card
-        featuredTitle="No more cards"
-        featuredTitleStyle={{ fontSize: 25 }}
-        image={{ uri: "https://i.imgflip.com/1j2oed.jpg" }}
-      />
-    );
-  };
->>>>>>> 1aa14639aee3b6ce9356c20f191ffde80cfb0fb3
-
   renderCard = recipe => {
     return (
-<<<<<<< HEAD
         <Card
           key={recipe.recipe_id}
           title={recipe.title}
@@ -141,23 +115,6 @@ const ResultList = ({
             />
             <Text>{'SWIPE TO\nSTASH>>>'}</Text>
             {/*<Button
-=======
-      <Card
-        key={recipe.recipe_id}
-        title={recipe.title}
-        image={{ uri: recipe.image_url }}
-      >
-        <Text style={styles.publisherText}>{recipe.publisher}</Text>
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Details"
-            icon={{ name: "explore" }}
-            buttonStyle={{ marginLeft: 0 }}
-            onPress={() => this.onLearnMore(recipe)}
-          />
-
-          {/*<Button
->>>>>>> 1aa14639aee3b6ce9356c20f191ffde80cfb0fb3
               title='Add'
               icon={{name: 'add'}}
               buttonStyle={{marginRight: 0}}
@@ -169,7 +126,6 @@ const ResultList = ({
   };
 
   return (
-<<<<<<< HEAD
       <SwipeDeck
         key={recipes.length}
         data={recipes}
@@ -178,15 +134,6 @@ const ResultList = ({
         onSwipeRight={this.onSwipeRight}
         onSwipeLeft={this.onSwipeLeft}
       />
-=======
-    <SwipeDeck
-      data={recipes}
-      renderCard={this.renderCard}
-      renderNoMoreCards={this.renderNoMoreCards}
-      onSwipeRight={this.onSwipeRight}
-      onSwipeLeft={this.onSwipeLeft}
-    />
->>>>>>> 1aa14639aee3b6ce9356c20f191ffde80cfb0fb3
   );
 };
 
@@ -195,7 +142,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   buttonContainer: {
-<<<<<<< HEAD
     flexDirection: 'row',
     justifyContent: 'center',
   },
@@ -213,13 +159,6 @@ const styles = StyleSheet.create({
   },
   leftSwipe: {
     textAlign: 'right'
-=======
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  publisherText: {
-    marginBottom: 10
->>>>>>> 1aa14639aee3b6ce9356c20f191ffde80cfb0fb3
   }
 });
 
