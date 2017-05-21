@@ -14,7 +14,8 @@ class PopularScreen extends Component {
   }
 
   getPopularRecipes = (pageNumber) => {
-    pageNumber = pageNumber || 0;
+    pageNumber = pageNumber || 2;
+    console.log('pagenumber', pageNumber);
       fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes/?q=""&page=${pageNumber}`)
         .then(res => res.json())
         .then(result => {
