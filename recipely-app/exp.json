@@ -17,9 +17,9 @@
   },
   "ios": {
     "supportsTablet": true,
-    "bundleIdentifier": "com.recipely.exp",
+    "bundleIdentifier": "com.recipely.exp"
   },
   "android": {
-     "package": "com.recipely.exp",
+     "package": "com.recipely.exp"
   }
 }
