@@ -1,11 +1,12 @@
 // TODO: RecipeList.js and ResultList.js share a lot of code. Maybe refactor to
 // use higher order components.
-import React from 'react';
+import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
   ScrollView,
   View,
+  RefreshControl
 } from 'react-native';
 import { Card } from 'react-native-elements';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -13,28 +14,31 @@ import Button from '../components/CustomButton';
 
 // Navigation prop needs to be passed down because it does not get passed down
 // child components.
-const SearchList = ({
-  navigation,
-  recipes,
-  savedRecipes,
-  idToken,
-  query,
-  onRecipesChange,
-  onSearchChange
-}) => {
+class SearchList extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false
+    }
+  }
+
   onLearnMore = (recipe) => {
+    const {
+      navigation,
+    } = this.props;
     // When user presses on "Details" button, navigate them to a detail screen.
     // Pass down props that can be acessed using this.props.navigation.state.params
     navigation.navigate('SearchDetail', { ...recipe });
   }
 
   handleSaveRecipeButton = async (recipe) => {
+    const {recipes, savedRecipes, onSearchChange, onRecipesChange, idToken} = this.props;
     const id = recipe.recipe_id;
     const isSaved = savedRecipes.find(recipe => recipe.f2f_id === id);
     // Only add recipe if it has not been saved yet
     if (!isSaved) {
       // Remove recipe from search so user knows it was saved
-      removeRecipeFromSearch(recipe);
+      this.removeRecipeFromSearch(recipe);
       // Making get request to get details of recipe so that it can be added to database
       let recipeObj = await
         fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes/${id}`)
@@ -60,41 +64,74 @@ const SearchList = ({
   };
 
   removeRecipeFromSearch = (recipe) => {
+    const {recipes, onSearchChange, query} = this.props;
     const newResults = recipes.filter(otherRecipe => otherRecipe.recipe_id !== recipe.recipe_id);
     onSearchChange(query, newResults);
   };
 
-  return (
-    <ScrollView>
-      { recipes.map(recipe => {
-          return (
-            <Card
-              key={recipe.recipe_id}
-              title={recipe.title}
-              image={{ uri: recipe.image_url }}
-            >
-              <Text style={styles.publisherText}>{recipe.publisher}</Text>
-              <View style={styles.buttonContainer}>
-                <Button
-                  title='Details'
-                  icon={{name: 'explore'}}
-                  buttonStyle={{marginLeft: 0}}
-                  onPress={() => this.onLearnMore(recipe)}
-                />
+  onRefresh = () => {
+    const {
+      handleSearch
+    } = this.props;
 
-                <Button
-                  title='Add'
-                  icon={{name: 'add'}}
-                  buttonStyle={{marginRight: 0}}
-                  onPress={() => this.handleSaveRecipeButton(recipe)}
-                />
-              </View>
-            </Card>
-          );
-        })
-      }
-    </ScrollView>
-  );
+    console.log('refreshing');
+    this.setState({refreshing: true});
+
+    handleSearch();
+    this.setState({refreshing: false});
+  }
+  render() {
+    const {
+      navigation,
+      recipes,
+      savedRecipes,
+      idToken,
+      query,
+      onRecipesChange,
+      onSearchChange,
+      handleSearch
+    } = this.props;
+
+    // console.log(this.props);
+    return (
+      <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this.onRefresh.bind(this)}
+          />
+        }
+      >
+        { recipes.map(recipe => {
+            return (
+              <Card
+                key={recipe.recipe_id}
+                title={recipe.title}
+                image={{ uri: recipe.image_url }}
+              >
+                <Text style={styles.publisherText}>{recipe.publisher}</Text>
+                <View style={styles.buttonContainer}>
+                  <Button
+                    title='Details'
+                    icon={{name: 'explore'}}
+                    buttonStyle={{marginLeft: 0}}
+                    onPress={() => this.onLearnMore(recipe)}
+                  />
+
+                  <Button
+                    title='Add'
+                    icon={{name: 'add'}}
+                    buttonStyle={{marginRight: 0}}
+                    onPress={() => this.handleSaveRecipeButton(recipe)}
+                  />
+                </View>
+              </Card>
+            );
+          })
+        }
+      </ScrollView>
+    );
+  }
 };
 
 const styles = StyleSheet.create({

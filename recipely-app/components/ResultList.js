@@ -76,12 +76,12 @@ const ResultList = ({
 
   onSwipeRight = recipe => {
     // console.log("Card liked: " + JSON.stringify(recipe));
-    onYummy();
+    //onYummy();
     this.handleSaveRecipeButton(recipe);
   };
 
   onSwipeLeft = (recipe) => {
-    onTrash();
+    //onTrash();
     console.log(recipes.length);
     console.log("Card disliked: " + recipe);
   }
