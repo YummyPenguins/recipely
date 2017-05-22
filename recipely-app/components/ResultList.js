@@ -76,12 +76,12 @@ const ResultList = ({
 
   onSwipeRight = recipe => {
     // console.log("Card liked: " + JSON.stringify(recipe));
-    onYummy();
+    //onYummy();
     this.handleSaveRecipeButton(recipe);
   };
 
   onSwipeLeft = (recipe) => {
-    onTrash();
+    //onTrash();
     console.log(recipes.length);
     console.log("Card disliked: " + recipe);
   }
@@ -150,10 +150,10 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 0,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 160
+    marginTop: 180
   },
   publisherText: {
     flex: 1,

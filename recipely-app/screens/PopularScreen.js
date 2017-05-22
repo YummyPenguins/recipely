@@ -38,7 +38,6 @@ class PopularScreen extends Component {
     const userRecipe = savedRecipes;
     var newRecipes = result.recipes.filter((recipe) => {
       for(var i = 0; i < userRecipe.length; i++){
-        console.log('checker', recipe.recipe_id, userRecipe[i].f2f_id, recipe.recipe_id === userRecipe[i].f2f_id);
         if(userRecipe[i].f2f_id === recipe.recipe_id) {
           return false;
         }
@@ -104,7 +103,6 @@ class PopularScreen extends Component {
       onPopularRecipesChange,
     } = this.props.screenProps;
     const { navigation } = this.props;
-    console.log(   JSON.stringify(this.state))
 
     return (
       <View style={styles.container}>

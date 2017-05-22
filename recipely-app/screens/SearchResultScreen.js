@@ -7,10 +7,12 @@ import {
 } from 'react-native';
 import SearchList from '../components/SearchList';
 
-var index = 1;
+var index = 0;
 class SearchResultScreen extends Component {
   constructor(props) {
     super(props);
+    
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   componentDidMount() {
@@ -19,15 +21,27 @@ class SearchResultScreen extends Component {
 
   getSearchRecipe = () => {
     //retrieve searchResults and onSearchchange from main.js
+    var oldquery;
     const { searchResults, onSearchChange } = this.props.screenProps;
     //retrieve the query from navigation
     const { query } = this.props.navigation.state.params;
-    if (!searchResults.hasOwnProperty(query)) {
+    if(oldquery !== query) {
+      console.log('inside if');
+      oldquery = query;
+      index++;
+    } else {
+      index = 1;
+    }
+    console.log('fetch',oldquery, query, index);
       fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes?q=${query}&page=${index}`)
         .then(res => res.json())
-        .then(results => onSearchChange(query, results.recipes.slice(0, 20)));
-    }
+        .then((results) => {onSearchChange(query, results.recipes.slice(0, 20))});
   }
+
+  handleSearch = () => {
+    this.getSearchRecipe();
+  }
+  
   render() {
     const {
       searchResults,
@@ -44,6 +58,7 @@ class SearchResultScreen extends Component {
       recipes = searchResults[query];
     }
 
+
     return (
       <View style={styles.container}>
         { recipes.length !== 0
@@ -52,6 +67,7 @@ class SearchResultScreen extends Component {
               recipes={recipes}
               savedRecipes={savedRecipes}
               idToken={idToken}
+              handleSearch={this.handleSearch}
               query={query}
               onRecipesChange={onRecipesChange}
               onSearchChange={onSearchChange}
