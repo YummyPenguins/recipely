@@ -7,23 +7,27 @@ import {
 } from 'react-native';
 import SearchList from '../components/SearchList';
 
+var index = 1;
 class SearchResultScreen extends Component {
   constructor(props) {
     super(props);
   }
 
   componentDidMount() {
+    this.getSearchRecipe();
+  }
+
+  getSearchRecipe = () => {
     //retrieve searchResults and onSearchchange from main.js
     const { searchResults, onSearchChange } = this.props.screenProps;
     //retrieve the query from navigation
     const { query } = this.props.navigation.state.params;
     if (!searchResults.hasOwnProperty(query)) {
-      fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes?q=${query}`)
+      fetch(`https://yummypenguin-recipely.herokuapp.com/api/recipes?q=${query}&page=${index}`)
         .then(res => res.json())
-        .then(results => onSearchChange(query, results.recipes.slice(0, 15)));
+        .then(results => onSearchChange(query, results.recipes.slice(0, 20)));
     }
   }
-
   render() {
     const {
       searchResults,

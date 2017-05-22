@@ -27,7 +27,9 @@ const ResultList = ({
   onPopularRecipesChange,
   getMoreRecipe,
   onRecipesChange,
-  onSearchChange
+  onSearchChange,
+  onYummy,
+  onTrash
 }) => {
   onLearnMore = recipe => {
     // When user presses on "Details" button, navigate them to a detail screen.
@@ -74,26 +76,27 @@ const ResultList = ({
 
   onSwipeRight = recipe => {
     // console.log("Card liked: " + JSON.stringify(recipe));
+    onYummy();
     this.handleSaveRecipeButton(recipe);
   };
 
   onSwipeLeft = (recipe) => {
-  
+    onTrash();
     console.log(recipes.length);
     console.log("Card disliked: " + recipe);
   }
   
   renderNoMoreCards= () => {
+    console.log('no more cards')
     getMoreRecipe(++index);
     //onPopularRecipesChange([]);
     return (
-    <View style={styles.container}>
+    // <View style={styles.container}>
       <View style={styles.loadingContainer}>
         <Text>Loading recipes</Text>
         <ActivityIndicator size="large" />
       </View>
-    </View>
-    
+    // </View>
     )
   }
 
@@ -146,9 +149,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   loadingContainer: {
-    flex: 1,
+    flex: 0,
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: 160
   },
   publisherText: {
     flex: 1,
