@@ -150,10 +150,10 @@ const styles = StyleSheet.create({
   },
   loadingContainer: {
     flex: 0,
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 160
+    marginTop: 180
   },
   publisherText: {
     flex: 1,
